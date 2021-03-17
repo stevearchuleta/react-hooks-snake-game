@@ -1,4 +1,4 @@
-//import logo from './logo.svg';
+import spiral from './spiral.png';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
@@ -24,8 +24,8 @@ import React, { useState, useEffect } from 'react';
 
 
 function App() {
-  const [theDotsXposition, setTheDotsXposition] = useState(null);
-  const [theDotsYposition, setTheDotsYposition] = useState(null);
+  const [theDotsHorizontalPosition, setTheDotsHorizontalPosition] = useState(null);
+  const [theDotsVerticalPosition, setTheDotsVerticalPosition] = useState(null);
 
   const [dotDirection, setDotDirection] = useState('right');
 
@@ -45,33 +45,66 @@ function App() {
     setScreenWidth(window.innerWidth);
   }
 
-  function setXY(xx, yy) {
-    setTheDotsXposition(xx);
-    setTheDotsYposition(yy);
+  function spacebarPressed(event) {
+    if(event.code === 'Space') {
+      console.log('Space Pressed');
+      setGameRunning(true);
+    };
   }
 
+  function move() {
+    console.log('moved!');
+    //right: x+
+    //left: x-
+    //up: y-
+    //down: y+
+    setTimeout(() => {
+      console.log('One Second');
+      setTheDotsHorizontalPosition(theDotsHorizontalPosition + 1);
+    }, 1000);
+  };
+
+  function setXY(xx, yy) {
+    setTheDotsVerticalPosition(xx);
+    setTheDotsHorizontalPosition(yy);
+  };
+
   useEffect(() => {
-   getSize()
+    if(theDotsVerticalPosition || theDotsVerticalPosition) {
+     // move();
+    }
+  }, [theDotsHorizontalPosition, theDotsVerticalPosition]);
+  
+  useEffect(() => {
+    getSize()
   }, []);
 
+  useEffect(() => {
+    if(gameRunning){
+      move();
+    }
+  }, [gameRunning]);
+  
   useEffect(() => {
     setXY(Math.floor(screenHeight/2), Math.floor(screenWidth/2))
   }, [screenHeight, screenWidth]);
 
+  
   window.addEventListener('resize', getSize);
-
+  document.addEventListener('keyup', spacebarPressed);
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src='./snake-spiral.png' className="App-logo" alt="logo" />
+        <img src={spiral} className="App-logo" alt="logo" />
         <h1>SNAKE GAME</h1>
       </header>
       <main className='main'>
-        <div className='dot' style={{ left: theDotsYposition, top:theDotsXposition }}></div>
-        <div>h:{theDotsXposition} w:{theDotsYposition}</div>
+        <div className='dot' style={{ left: theDotsHorizontalPosition, top: theDotsVerticalPosition }}></div>
+        <div>h:{theDotsVerticalPosition} w:{theDotsHorizontalPosition}</div>
       </main>
     </div>
   );
-}
+ }
 
 export default App;
