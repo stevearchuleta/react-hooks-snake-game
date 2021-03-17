@@ -1,3 +1,63 @@
+#SNAKE GAME DIAGRAM
+#==================
+
+#==================
+# INITIAL PAGE LOAD
+#==================
+direction = right
+running = false
+
+       ||
+       VV
+
+get(height, width)
+
+       ||
+       VV
+
+set(height, width)
+
+       ||
+       VV
+
+set(horizontal, vertical)
+x = width / 2
+y = height / 2
+
+
+#==================
+# SPACE BAR CLICK
+#==================
+
+set(gameRunning = true)
+
+       ||
+       VV
+
+call move() w/setTimeout()
+
+ ||             ||              ||              ||
+ VV             VV              VV              VV
+
+ direction=up   direction=down  direction=right direction=left
+ set y-1        set y + 1       set x + 1       set y -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
